@@ -42,7 +42,7 @@ with open(os.path.join("data", output_file), mode="w", newline="", encoding="utf
                 EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'div.col-service'))
             )
         except:
-            print(f"⚠️ Timeout while waiting for cards on page {page}")
+            print(f" Timeout while waiting for cards on page {page}")
             continue
 
         cards = driver.find_elements(By.CSS_SELECTOR, 'div.col-service')
@@ -58,7 +58,7 @@ with open(os.path.join("data", output_file), mode="w", newline="", encoding="utf
                 business_name = name_link_el.text.strip()
                 business_link = name_link_el.get_attribute("href")
             except Exception as e:
-                print(f"⚠️ Could not get name/link: {e}")
+                print(f"Could not get name/link: {e}")
 
             # Enhanced extraction of categories, location, and description
             try:
@@ -96,13 +96,13 @@ with open(os.path.join("data", output_file), mode="w", newline="", encoding="utf
                                 business_description = p_text
                                 
                     except Exception as inner_e:
-                        print(f"⚠️ Error processing paragraph: {inner_e}")
+                        print(f"Error processing paragraph: {inner_e}")
                         continue
                 
                 business_location = ", ".join(locations)
                 
             except Exception as e:
-                print(f"⚠️ Could not get categories/location/description: {e}")
+                print(f"Could not get categories/location/description: {e}")
 
             scraped_at = datetime.now().strftime("%d/%m/%Y %H:%M")
 
@@ -116,7 +116,7 @@ with open(os.path.join("data", output_file), mode="w", newline="", encoding="utf
                 scraped_at
             ])
             
-            print(f"✅ Extracted: {business_name} | {business_categories} | {business_location}")
+            print(f"Extracted: {business_name} | {business_categories} | {business_location}")
 
 driver.quit()
-print(f"✅ Scraped data from {num_pages} pages and saved to 'data/{output_file}'")
+print(f"Scraped data from {num_pages} pages and saved to 'data/{output_file}'")
